@@ -19,14 +19,18 @@ if __name__ == "__main__":
     
     js = load_json()
     checks = js['ExposureChecks']
+
     dat = pd.DataFrame(checks)
     dat['Timestamp'] = pd.to_datetime(dat['Timestamp'])
+
+    tooltip = list(dat.columns)
+    tooltip.remove('Hash')
 
     st.write(
         alt.Chart(dat).mark_bar().encode(
             x='Timestamp',
             y='RandomIDCount',
-            tooltip=list(dat.columns)
+            tooltip=tooltip
         )
     )
 
